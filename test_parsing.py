@@ -43,4 +43,8 @@ dict_for_pandas = {'Postal Index': list_index[1:], 'Index Name': list_name[1:],
 
 df = pd.DataFrame(dict_for_pandas)
 
-print(df.head(10))
+#export to csv
+#df.to_csv('out_postal_index', index=False)
+
+#export to Excel
+#df.to_excel('out_postal_index.xlsx', sheet_name='Postal_Index')
