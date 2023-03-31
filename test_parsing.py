@@ -5,6 +5,7 @@ import lxml as lxml
 
 list_index = []
 list_name = []
+list_district_temp = []
 list_district = []
 list_houses = []
 
@@ -21,24 +22,25 @@ index = soup.find_all('td', class_='col-sm-2')
 names = soup.find_all('td', class_='col-sm-4')
 district = soup.find_all('td', class_='col-sm-3')
 
-# Create list_index, list_name, list_district 
+# Create list_index, list_name, list_district_temp
 for name in index:
     list_index.append(name.text)
 for name in names:
     list_name.append(name.text)
 for name in district:
-    list_district.append(name.text)
+    list_district_temp.append(name.text)
 
-# Split list and Create list_houses
-for i in range(0, len(list_district)):
+# Split list and Create list_houses and list_district
+for i in range(0, len(list_district_temp)):
     if i % 2:
-        list_houses.append(list_district[i])
+        list_houses.append(list_district_temp[i])
+    else:
+        list_district.append(list_district_temp[i])
 
+# Dict for pandas DataFrame
+dict_for_pandas = {'Postal Index': list_index[1:], 'Index Name': list_name[1:], 
+                   'District Name': list_district[1:], 'House': list_houses[1:]}
 
-# Сделать цикл удаления элементов из list_district
+df = pd.DataFrame(dict_for_pandas)
 
-
-
-
-
-
+print(df.head(10))
